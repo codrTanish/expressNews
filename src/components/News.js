@@ -19,7 +19,11 @@ const News = (props) => {
     
 
     const fetchNews = async () => {
-        const response = await axios.get(`https://newsapi.org/v2/top-headlines?category=${category}&apiKey=${apiKey}&pagesize=${pageSize}&language=en`)
+        const response = await axios.get(`https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?category=${category}&apiKey=${apiKey}&pagesize=${pageSize}&language=en`, {
+            headers:{
+                origin: 'http://localhost'
+            }
+        })
         setProgress(30)
         setTotalresults(response.data.totalResults)
         setParsedData(response.data.articles)
@@ -43,7 +47,11 @@ const News = (props) => {
     }, [])
 
     const fetchMore = async () => {
-        const responseMore = await axios.get(`https://newsapi.org/v2/top-headlines?category=${category}&apiKey=${apiKey}&pagesize=${pageSize}&page=${page + 1}&language=en`)
+        const responseMore = await axios.get(`https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?category=${category}&apiKey=${apiKey}&pagesize=${pageSize}&page=${page + 1}&language=en`, {
+            headers: {
+                origin: 'http://localhost'
+            }
+        })
         setPage(page + 1)
         setParsedData(parsedData.concat(responseMore.data.articles))
 
